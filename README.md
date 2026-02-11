@@ -1,2 +1,2 @@
-# DataMate-Vertical-Ops
-DataMate 垂类行业算子仓
+# domain-specific-operators
+DataMate 垂直领域算子仓
