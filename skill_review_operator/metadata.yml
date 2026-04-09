@@ -1,0 +1,65 @@
+name: 'Skill 包审查'
+description: '对 Agent Skill 压缩包（.zip / .tar.gz）进行规则审查：代码风险、规范、敏感信息、Prompt 注入。启用语义层时使用算子参数中的模型配置。结果以 JSON 写入输出文本。'
+language: 'python'
+vendor: 'custom'
+raw_id: 'SkillReviewMapper'
+version: '1.0.0'
+modal: 'text'
+inputs: 'text'
+outputs: 'text'
+types:
+  - 'cleaning'
+release:
+  - 'v2：规则层 + 语义层，模型配置独立为算子参数'
+  - '支持通过 Base URL / 模型名称 / API Key 直连 OpenAI 兼容接口'
+metrics:
+  - name: '审查维度'
+    metric: '4 项规则检查'
+runtime:
+  memory: 20971520
+  cpu: 0.1
+  gpu: 0
+  npu: 0
+settings:
+  modelProvider:
+    name: '模型提供商（可选）'
+    description: '仅用于结果展示，例如 OpenAI/DeepSeek/硅基流动'
+    type: 'input'
+    defaultVal: ''
+    required: false
+  modelBaseUrl:
+    name: '模型 Base URL（必填）'
+    description: 'OpenAI 兼容地址，例如 https://api.siliconflow.cn/v1'
+    type: 'input'
+    defaultVal: ''
+    required: true
+  modelName:
+    name: '模型名称（必填）'
+    description: '例如 Pro/zai-org/GLM-5、gpt-4o-mini、deepseek-chat'
+    type: 'input'
+    defaultVal: ''
+    required: true
+  modelApiKey:
+    name: '模型 API Key（必填）'
+    description: '当前参数面板无密码控件，输入会明文展示；建议使用最小权限密钥并定期轮换'
+    type: 'input'
+    defaultVal: ''
+    required: true
+  modelTemperature:
+    name: '采样温度'
+    description: '0 到 2，越低越稳定，默认 0.2'
+    type: 'slider'
+    defaultVal: 0.2
+    required: false
+    min: 0
+    max: 2
+    step: 0.1
+  modelTimeoutSec:
+    name: '模型超时（秒）'
+    description: '语义层接口超时时间，默认 180 秒'
+    type: 'inputNumber'
+    defaultVal: 180
+    required: false
+    min: 10
+    max: 600
+    step: 10
